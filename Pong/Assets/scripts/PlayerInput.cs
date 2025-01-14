@@ -8,20 +8,27 @@ public class PlayerInput : MonoBehaviour
 
     private InputAction startAction;
     private InputAction moveAction;
+    private InputAction pauseAction;
 
     private void Awake()
     {
         startAction = InputSystem.actions.FindAction("Start");
         moveAction = InputSystem.actions.FindAction("Move");
+        pauseAction = InputSystem.actions.FindAction("Pause");
     }
 
     void Update()
     {
         playerRocket.GetComponent<RocketScript>().movement = moveAction.ReadValue<float>();
 
-        if (startAction.WasPressedThisFrame() && gameManager.gameOn == false)
+        if (startAction.WasPressedThisFrame())
         {
             gameManager.StartGame();
+        }
+
+        if (pauseAction.WasPressedThisFrame())
+        {
+            gameManager.Pause();
         }
     }
 }

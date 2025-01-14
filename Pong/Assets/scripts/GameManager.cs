@@ -7,14 +7,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> rockets = new List<GameObject>();
 
     public bool gameOn = false;
+    public bool gamePaused = false;
 
     public int playerScore = 0;
     public int aiScore = 0;
 
     public void StartGame()
     {
-        gameOn = true;
-        ball.GetComponent<BallScript>().Launch();
+        if (!gameOn)
+        {
+            gameOn = true;
+            ball.GetComponent<BallScript>().Launch();
+        }
     }
 
     public void StopGame(bool scored) //true if player scored, false if ai scored
@@ -44,5 +48,19 @@ public class GameManager : MonoBehaviour
         playerScore = 0;
         playerScore = 0;
         gameOn = false;
+    }
+
+    public void Pause()
+    {
+        if (!gamePaused)
+        {
+            gamePaused = true;
+            Time.timeScale = 0;
+        }
+        else if (gamePaused)
+        {
+            gamePaused = false;
+            Time.timeScale = 1;
+        }
     }
 }
