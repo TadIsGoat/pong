@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public int playerScore = 0;
     public int aiScore = 0;
+
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     public void StartGame()
     {
@@ -37,10 +40,12 @@ public class GameManager : MonoBehaviour
         {
             playerScore++;
         }
-        else
+        else if (!scored)
         {
             aiScore++;
         }
+
+        UpdateScore();
     }
 
     public void ResetGame()
@@ -62,5 +67,21 @@ public class GameManager : MonoBehaviour
             gamePaused = false;
             Time.timeScale = 1;
         }
+    }
+
+    public TextMeshProUGUI ScoreText
+    {
+        get { return scoreText; }
+        set { scoreText.text = ScoreTextString; }
+    }
+
+    public string ScoreTextString
+    {
+        get { return $"{playerScore} : {aiScore}"; }
+    }
+
+    private void UpdateScore()
+    {
+        scoreText.text = ScoreTextString;
     }
 }
