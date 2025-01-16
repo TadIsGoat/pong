@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         {
             gameOn = true;
             ball.GetComponent<BallScript>().Launch();
+            UpdateScore();
         }
     }
 
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
         playerScore = 0;
         playerScore = 0;
         gameOn = false;
+        UpdateScore();
     }
 
     public void Pause()
